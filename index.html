@@ -58,28 +58,9 @@ const deadline = new Date(2025, 11, 10, 20, 0, 0);
 
 
 const teams = [
-{ name:"New York Yankees", price:15, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png" },
-{ name:"Los Angeles Dodgers", price:15, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/lad.png" },
+{ name:"Arizona Diamondbacks", price:8, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/ari.png" },
+{ name:"Atlanta Braves", price:12, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/atl.png" },
+{ name:"Baltimore Orioles", price:10, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/bal.png" },
 { name:"Boston Red Sox", price:10, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/bos.png" },
 { name:"Chicago Cubs", price:10, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/chc.png" },
-{ name:"Houston Astros", price:10, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/hou.png" },
-{ name:"Atlanta Braves", price:12, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/atl.png" },
-{ name:"San Diego Padres", price:12, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/sd.png" }
-];
-
-
-const teamsDiv = document.getElementById("teams");
-const recapDiv = document.getElementById("recap");
-const timerDiv = document.getElementById("timer");
-
-
-function renderTeams(taken=[]) {
-teamsDiv.innerHTML="";
-teams.forEach(t=>{
-const d=document.createElement("div");
-d.className="team"+(taken.includes(t.name)?" taken":"");
-d.innerHTML=`<img src="${t.logo}"><p>${t.name}</p><p class="price">${t.price}€</p>`;
-d.onclick=()=>selectTeam(t);
-teamsDiv.appendChild(d);
-});
-  </html>
+</html>
