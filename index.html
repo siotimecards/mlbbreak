@@ -1,69 +1,67 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<title>MLB Break – Inscriptions | Siotime</title>
-<style>
-body { font-family: Arial, sans-serif; text-align:center; background:#fafafa; margin:0 }
-h1 { color:#222 }
-.timer { font-size:20px; color:red; font-weight:bold; margin:10px }
-.teams { display:flex; flex-wrap:wrap; justify-content:center; gap:15px; margin:20px }
-.team { width:140px; padding:10px; border:1px solid #ccc; border-radius:12px; background:white; cursor:pointer }
-.team:hover { background:#f2f2f2 }
-.taken { opacity:0.4; pointer-events:none; background:#ddd }
-.team img { width:70px }
-.price { color:green; font-size:0.9em }
-.recap-item { display:flex; align-items:center; justify-content:center; gap:10px; margin:5px }
-.recap-item img { width:30px }
-.section { max-width:800px; margin:40px auto; padding:20px; background:#fff; border-radius:15px; box-shadow:0 4px 10px rgba(0,0,0,0.05) }
-.social-bar { background:#000; padding:10px; display:flex; justify-content:center; gap:20px }
-.social-bar img { width:32px }
-</style>
-</head>
-<body>
+{ name:"Pittsburgh Pirates", price:7, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/pit.png" },
+{ name:"San Diego Padres", price:12, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/sd.png" },
+{ name:"San Francisco Giants", price:9, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/sf.png" },
+{ name:"Seattle Mariners", price:9, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/sea.png" },
+{ name:"St. Louis Cardinals", price:9, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/stl.png" },
+{ name:"Tampa Bay Rays", price:8, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/tb.png" },
+{ name:"Texas Rangers", price:9, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/tex.png" },
+{ name:"Toronto Blue Jays", price:10, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/tor.png" },
+{ name:"Washington Nationals", price:7, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/wsh.png" },
+{ name:"🎲 Spot Hors Sports", price:5, logo:"https://cdn-icons-png.flaticon.com/512/3523/3523063.png" },
+{ name:"🏈⚽🏀 Spot Autres Sports", price:6, logo:"https://cdn-icons-png.flaticon.com/512/861/861512.png" }
+];
 
 
-<div class="social-bar">
-<a href="https://www.youtube.com/@SioTime" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg"></a>
-<a href="https://www.instagram.com/siotime.cards/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"></a>
-<a href="https://x.com/Siotimecards" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg"></a>
-</div>
+const teamsDiv = document.getElementById("teams");
+const recapDiv = document.getElementById("recap");
+const timerDiv = document.getElementById("timer");
 
 
-<h1>⚾ Inscriptions MLB Break – Siotime</h1>
-<div class="timer" id="timer"></div>
-<div class="teams" id="teams"></div>
-
-
-<h2>✅ Récap des inscrits</h2>
-<div id="recap"></div>
-
-
-<div class="section">
-<h2>📦 Règlement du Break</h2>
-<ol style="text-align:left">
-<li>Un spot = une équipe MLB</li>
-<li>Tirage et ouverture en live YouTube</li>
-<li>Toutes les cartes MLB sont envoyées</li>
-<li>Cartes multi-équipes tirées au sort en live</li>
-<li>Envoi protégé et suivi</li>
-<li>Aucun remboursement après démarrage</li>
-</ol>
-</div>
-
-
-<script>
-async function loadData() {
-  renderTeams([]);
+function renderTeams(taken=[]) {
+teamsDiv.innerHTML="";
+teams.forEach(t=>{
+const d=document.createElement("div");
+d.className="team"+(taken.includes(t.name)?" taken":"");
+d.innerHTML=`<img src="${t.logo}"><p>${t.name}</p><p class="price">${t.price}€</p>`;
+d.onclick=()=>selectTeam(t);
+teamsDiv.appendChild(d);
+});
 }
 
-const deadline = new Date(2025, 11, 10, 20, 0, 0);
+
+async function selectTeam(team){
+const pseudo=prompt("Pseudo :"); if(!pseudo) return;
+const social=prompt("Réseau social :"); if(!social) return;
+if(!confirm(`Confirmer ${team.name} (${team.price}€)`)) return;
+const r=await fetch(ENDPOINT,{method:"POST",body:JSON.stringify({pseudo,social,team:team.name})});
+const j=await r.json();
+alert(j.status==="ok"?"Inscription validée":"Erreur");
+loadData();
+}
 
 
-const teams = [
-{ name:"Arizona Diamondbacks", price:8, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/ari.png" },
-{ name:"Atlanta Braves", price:12, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/atl.png" },
-{ name:"Baltimore Orioles", price:10, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/bal.png" },
-{ name:"Boston Red Sox", price:10, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/bos.png" },
-{ name:"Chicago Cubs", price:10, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/chc.png" },
+async function loadData(){
+const t=await (await fetch(ENDPOINT+"?mode=taken")).json();
+renderTeams(t);
+const r=await (await fetch(ENDPOINT+"?mode=recap")).json();
+recapDiv.innerHTML="";
+r.forEach(e=>{
+const team=teams.find(x=>x.name===e.team);
+if(team) recapDiv.innerHTML+=`<div class="recap-item"><img src="${team.logo}"><b>${e.pseudo}</b> (${team.name})</div>`;
+});
+}
+
+
+function updateTimer(){
+const diff=deadline-new Date();
+if(diff<=0){timerDiv.innerHTML="⛔ Inscriptions fermées";return;}
+const h=Math.floor(diff/36e5),m=Math.floor(diff/6e4%60),s=Math.floor(diff/1e3%60);
+timerDiv.innerHTML=`⏳ Fin dans ${h}h ${m}m ${s}s`;
+}
+
+
+loadData(); updateTimer(); setInterval(loadData,15000); setInterval(updateTimer,1000);
+</script>
+</body>
 </html>
