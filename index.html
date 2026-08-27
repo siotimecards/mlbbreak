@@ -621,7 +621,7 @@ const INSCRIPTIONS_END =
 new Date(2026, 7, 28, 20, 00, 0);
 
 const BREAK_START =
-new Date(2026, 8, 7, 20, 30, 0);
+new Date(2026, 8, 04, 20, 00, 0);
 
 
 /* =====================================================
@@ -869,15 +869,74 @@ function renderTeams(taken = []) {
 
     teamsDiv.innerHTML = "";
 
+    const now = new Date();
+
+    // 🔒 Inscriptions pas encore ouvertes
+    if (now < INSCRIPTIONS_START) {
+
+        teamsDiv.innerHTML = `
+            <div style="
+                width:100%;
+                max-width:600px;
+                margin:20px auto;
+                padding:25px;
+                background:#fff3cd;
+                border:1px solid #ffe69c;
+                border-radius:15px;
+                font-weight:bold;
+                color:#664d03;
+            ">
+                🔒 Les inscriptions ne sont pas encore ouvertes.<br><br>
+                Ouverture le
+                ${INSCRIPTIONS_START.toLocaleDateString("fr-FR")}
+                à
+                ${INSCRIPTIONS_START.toLocaleTimeString("fr-FR", {
+                    hour:"2-digit",
+                    minute:"2-digit"
+                })}
+            </div>
+        `;
+
+        spotsCounter.innerHTML =
+            "🔒 Inscriptions bientôt ouvertes";
+
+        return;
+    }
+
+    // 🔒 Inscriptions terminées
+    if (now >= INSCRIPTIONS_END) {
+
+        teamsDiv.innerHTML = `
+            <div style="
+                width:100%;
+                max-width:600px;
+                margin:20px auto;
+                padding:25px;
+                background:#f8d7da;
+                border:1px solid #f5c2c7;
+                border-radius:15px;
+                font-weight:bold;
+                color:#842029;
+            ">
+                ⛔ Les inscriptions sont fermées.
+            </div>
+        `;
+
+        spotsCounter.innerHTML =
+            "⛔ Inscriptions fermées";
+
+        return;
+    }
+
+    // ✅ Inscriptions ouvertes
     teams.forEach(team => {
 
-        const div =
-        document.createElement("div");
+        const div = document.createElement("div");
 
         div.className =
-        "team" +
-        (taken.includes(team.name) ? " taken" : "") +
-        (team.special ? " special" : "");
+            "team" +
+            (taken.includes(team.name) ? " taken" : "") +
+            (team.special ? " special" : "");
 
         div.innerHTML = `
             <img src="${team.logo}" alt="${team.name}">
@@ -889,10 +948,13 @@ function renderTeams(taken = []) {
 
             div.onclick = () => {
 
-                if (new Date() >= INSCRIPTIONS_END) {
+                if (
+                    new Date() < INSCRIPTIONS_START ||
+                    new Date() >= INSCRIPTIONS_END
+                ) {
 
                     showMessage(
-                        "⛔ Les inscriptions sont fermées."
+                        "⛔ Les inscriptions ne sont pas ouvertes."
                     );
 
                     return;
@@ -908,7 +970,6 @@ function renderTeams(taken = []) {
     });
 
 }
-
 
 /* =====================================================
    OUVERTURE DE LA MODALE
