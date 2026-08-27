@@ -1,150 +1,1394 @@
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MLB Break 9 – Inscriptions | Siotime</title>
+
 <style>
-body { font-family: Arial, sans-serif; text-align:center; background:#fafafa; margin:0 }
-h1 { color:#222 }
-.timer { font-size:20px; color:red; font-weight:bold; margin:10px }
-.teams { display:flex; flex-wrap:wrap; justify-content:center; gap:15px; margin:20px }
-.team { width:140px; padding:10px; border:1px solid #ccc; border-radius:12px; background:white; cursor:pointer }
-.team:hover { background:#f2f2f2 }
-.taken { opacity:0.4; pointer-events:none; background:#ddd }
-.team img { width:70px }
-.price { color:green; font-size:0.9em }
-.recap-item { display:flex; align-items:center; justify-content:center; gap:10px; margin:5px }
-.recap-item img { width:30px }
-.section { max-width:800px; margin:40px auto; padding:20px; background:#fff; border-radius:15px; box-shadow:0 4px 10px rgba(0,0,0,0.05) }
-.social-bar { background:#000; padding:10px; display:flex; justify-content:center; gap:20px }
-.social-bar img { width:32px }
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #fafafa;
+    margin: 0;
+    color: #222;
+}
+
+/* =========================
+   BARRE SOCIALE
+========================= */
+
+.social-bar {
+    background: #000;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-bar img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+/* =========================
+   TITRE
+========================= */
+
+h1 {
+    margin: 25px 10px 10px;
+    color: #222;
+}
+
+.subtitle {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* =========================
+   COMPTEURS
+========================= */
+
+.countdown-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+.countdown-box {
+    background: white;
+    border-radius: 18px;
+    padding: 20px;
+    margin: 15px auto;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.countdown-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.countdown {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.inscription-countdown {
+    color: #d00000;
+}
+
+.break-countdown {
+    color: #111;
+}
+
+.break-live {
+    color: #008000;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* =========================
+   IMAGE BREAK
+========================= */
+
+.break-section {
+    margin: 30px auto;
+    padding: 10px;
+}
+
+.break-section img {
+    max-width: 300px;
+    width: 90%;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* =========================
+   SPOTS
+========================= */
+
+.section-title {
+    margin-top: 35px;
+    margin-bottom: 10px;
+}
+
+.spots-counter {
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #444;
+}
+
+.teams {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px auto;
+    max-width: 1200px;
+    padding: 0 10px;
+}
+
+.team {
+    width: 140px;
+    min-height: 175px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    background: white;
+    cursor: pointer;
+    transition: 0.2s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.team:hover {
+    background: #f2f2f2;
+    transform: translateY(-3px);
+}
+
+.team img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+}
+
+.team p {
+    margin: 8px 0;
+}
+
+.price {
+    color: green;
+    font-size: 0.95em;
+    font-weight: bold;
+}
+
+.taken {
+    opacity: 0.4;
+    pointer-events: none;
+    background: #ddd;
+}
+
+.special {
+    border: 2px solid #111;
+    background: #fffdf2;
+}
+
+.special:hover {
+    background: #fff8d6;
+}
+
+/* =========================
+   RECAP
+========================= */
+
+.recap-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.recap-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 8px;
+    padding: 8px;
+    background: white;
+    border-radius: 10px;
+}
+
+.recap-item img {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+}
+
+/* =========================
+   REGLEMENT
+========================= */
+
+.section {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.section ol {
+    line-height: 1.8;
+}
+
+/* =========================
+   MODALE INSCRIPTION
+========================= */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.65);
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+}
+
+.modal-content {
+    background: white;
+    width: 100%;
+    max-width: 430px;
+    padding: 25px;
+    border-radius: 18px;
+    text-align: left;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.modal-content h2 {
+    text-align: center;
+    margin-top: 0;
+}
+
+.selected-team {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.modal-content label {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.modal-content input,
+.modal-content select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.cancel-btn {
+    background: #ddd;
+}
+
+.confirm-btn {
+    background: #111;
+    color: white;
+}
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message {
+    position: fixed;
+    z-index: 2000;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 25px;
+    border-radius: 10px;
+    background: #111;
+    color: white;
+    display: none;
+    font-weight: bold;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .team {
+        width: 130px;
+        min-height: 165px;
+    }
+
+    .countdown {
+        font-size: 22px;
+    }
+
+    .break-live {
+        font-size: 24px;
+    }
+}
 </style>
 </head>
+
 <body>
 
+<!-- =========================
+     RÉSEAUX SOCIAUX
+========================= -->
 
 <div class="social-bar">
-<a href="https://www.youtube.com/@SioTime" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg"></a>
-<a href="https://www.instagram.com/siotime.cards/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"></a>
-<a href="https://x.com/Siotimecards" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg"></a>
+
+<a href="https://www.youtube.com/@SioTime" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg">
+</a>
+
+<a href="https://www.instagram.com/siotime.cards/" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png">
+</a>
+
+<a href="https://x.com/Siotimecards" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg">
+</a>
+
 </div>
 
 
-<h1>⚾ Inscriptions MLB Break #8 – Siotime</h1>
-<div class="timer" id="timer"></div>
+<!-- =========================
+     TITRE
+========================= -->
+
+<h1>⚾ Inscriptions MLB Break #9 – Siotime</h1>
+
+<div class="subtitle">
+32 spots disponibles
+</div>
+
+
+<!-- =========================
+     COMPTEURS
+========================= -->
+
+<div class="countdown-container">
+
+    <div class="countdown-box">
+
+        <div class="countdown-title">
+            ⏳ Fin des inscriptions
+        </div>
+
+        <div
+            class="countdown inscription-countdown"
+            id="inscriptionTimer">
+        </div>
+
+    </div>
+
+
+    <div class="countdown-box">
+
+        <div class="countdown-title">
+            🔥 Ouverture du Break
+        </div>
+
+        <div
+            class="countdown break-countdown"
+            id="breakTimer">
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     IMAGE BREAK
+========================= -->
 
 <div class="break-section">
- <h2>📦 Le Break en image</h2>
- <img src="BreakMLB.png" alt="Break MLB Siotime" style="max-width:300px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1); margin: 0 auto; display:block;">
+
+    <h2>📦 Le Break en image</h2>
+
+    <img
+        src="BreakMLB.png"
+        alt="Break MLB Siotime"
+    >
+
+</div>
+
+
+<!-- =========================
+     EQUIPES MLB
+========================= -->
+
+<h2 class="section-title">
+⚾ Équipes MLB
+</h2>
+
+<div class="spots-counter" id="spotsCounter">
+Chargement des spots...
 </div>
 
 <div class="teams" id="teams"></div>
 
 
-<h2>✅ Récap des inscrits</h2>
-<div id="recap"></div>
+<!-- =========================
+     RECAP
+========================= -->
 
+<div class="recap-container">
+
+<h2>✅ Récap des inscrits</h2>
+
+<div id="recap">
+Chargement...
+</div>
+
+</div>
+
+
+<!-- =========================
+     REGLEMENT
+========================= -->
 
 <div class="section">
+
 <h2>📦 Règlement du Break</h2>
+
 <ol style="text-align:left">
-<li>Un spot = une équipe MLB</li>
-<li>Tirage et ouverture en live YouTube</li>
-<li>Toutes les cartes MLB sont envoyées</li>
-<li>Cartes multi-équipes tirées au sort en live</li>
-<li>Envoi protégé et suivi</li>
-<li>Aucun remboursement après démarrage</li>
+
+<li>
+Un spot = une équipe MLB ou un spot spécial
+</li>
+
+<li>
+Tirage et ouverture en live YouTube
+</li>
+
+<li>
+Toutes les cartes MLB sont envoyées
+</li>
+
+<li>
+Cartes multi-équipes tirées au sort en live
+</li>
+
+<li>
+Envoi protégé et suivi
+</li>
+
+<li>
+Aucun remboursement après démarrage du Break
+</li>
+
 </ol>
+
+</div>
+
+
+<!-- =========================
+     MODALE
+========================= -->
+
+<div class="modal" id="inscriptionModal">
+
+<div class="modal-content">
+
+<h2>📝 Inscription</h2>
+
+<div
+    class="selected-team"
+    id="selectedTeam">
+</div>
+
+<label for="pseudo">
+Pseudo
+</label>
+
+<input
+    type="text"
+    id="pseudo"
+    placeholder="Ton pseudo"
+    autocomplete="off"
+>
+
+<label for="social">
+Réseau social
+</label>
+
+<select id="social">
+
+<option value="">
+Choisir...
+</option>
+
+<option value="X">
+X
+</option>
+
+<option value="Instagram">
+Instagram
+</option>
+
+<option value="YouTube">
+YouTube
+</option>
+
+</select>
+
+<div class="modal-buttons">
+
+<button
+    class="cancel-btn"
+    onclick="closeModal()">
+Annuler
+</button>
+
+<button
+    class="confirm-btn"
+    id="confirmButton"
+    onclick="confirmInscription()">
+Confirmer
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     MESSAGE
+========================= -->
+
+<div
+    class="message"
+    id="message">
 </div>
 
 
 <script>
-const ENDPOINT = "https://script.google.com/macros/s/AKfycbyMYlvpAhowyBgtXORXSEooukFbl9hYfeVbC05FbQdyfDuizN2fuUWNrpLkowDGey4yww/exec";
-const deadline = new Date(2026,07, 10, 20, 0, 0); // 05 avril 2026 à 20h00
 
+/* =====================================================
+   CONFIGURATION
+===================================================== */
+
+const ENDPOINT =
+"https://script.google.com/macros/s/AKfycbyMYlvpAhowyBgtXORXSEooukFbl9hYfeVbC05FbQdyfDuizN2fuUWNrpLkowDGey4yww/exec";
+
+
+/*
+=======================================================
+DATES DU BREAK
+
+IMPORTANT :
+JavaScript compte les mois de 0 à 11.
+
+0 = janvier
+1 = février
+...
+7 = août
+8 = septembre
+
+Tu peux modifier uniquement ces deux lignes.
+=======================================================
+*/
+
+const INSCRIPTIONS_END =
+new Date(2026, 7, 30, 19, 30, 0);
+
+const BREAK_START =
+new Date(2026, 7, 30, 20, 30, 0);
+
+
+/* =====================================================
+   EQUIPES + SPOTS
+===================================================== */
 
 const teams = [
-{ name:"Arizona Diamondbacks", price:13, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/ari.png" },
-{ name:"Atlanta Braves", price:22, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/atl.png" },
-{ name:"Baltimore Orioles", price:26, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/bal.png" },
-{ name:"Boston Red Sox", price:25, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/bos.png" },
-{ name:"Chicago Cubs", price:19, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/chc.png" },
-{ name:"Chicago White Sox", price:19, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/chw.png" },
-{ name:"Cincinnati Reds", price:19, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/cin.png" },
-{ name:"Cleveland Guardians", price:15, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/cle.png" },
-{ name:"Colorado Rockies", price:11, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/col.png" },
-{ name:"Detroit Tigers", price:19, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/det.png" },
-{ name:"Houston Astros", price:19, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/hou.png" },
-{ name:"Kansas City Royals", price:17, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/kc.png" },
-{ name:"Los Angeles Angels", price:18, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/laa.png" },
-{ name:"Miami Marlins", price:12, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/mia.png" },
-{ name:"Milwaukee Brewers", price:17, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/mil.png" },
-{ name:"Minnesota Twins", price:13, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/min.png" },
-{ name:"New York Mets", price:23, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/nym.png" },
-{ name:"New York Yankees", price:33, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png" },
-{ name:"Oakland Athletics", price:21, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/oak.png" },
-{ name:"Philadelphia Phillies", price:23, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/phi.png" },
-{ name:"San Diego Padres", price:16, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/sd.png" },
-{ name:"San Francisco Giants", price:19, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/sf.png" },
-{ name:"Seattle Mariners", price:21, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/sea.png" },
-{ name:"St. Louis Cardinals", price:15, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/stl.png" },
-{ name:"Tampa Bay Rays", price:15, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/tb.png" },
-{ name:"Texas Rangers", price:17, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/tex.png" },
-{ name:"Toronto Blue Jays", price:20, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/tor.png" },
-{ name:"Washington Nationals", price:19, logo:"https://a.espncdn.com/i/teamlogos/mlb/500/wsh.png" },
-{ name:"🏆 Hors Sports", price:15, logo:"https://cdn-icons-png.flaticon.com/512/857/857455.png" },
-{ name:"🏅 Autre Sport", price:15, logo:"https://cdn-icons-png.flaticon.com/512/857/857455.png" }
+
+{
+name:"Arizona Diamondbacks",
+price:13,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/ari.png"
+},
+
+{
+name:"Atlanta Braves",
+price:22,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/atl.png"
+},
+
+{
+name:"Baltimore Orioles",
+price:26,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/bal.png"
+},
+
+{
+name:"Boston Red Sox",
+price:25,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/bos.png"
+},
+
+{
+name:"Chicago Cubs",
+price:19,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/chc.png"
+},
+
+{
+name:"Chicago White Sox",
+price:19,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/chw.png"
+},
+
+{
+name:"Cincinnati Reds",
+price:19,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/cin.png"
+},
+
+{
+name:"Cleveland Guardians",
+price:15,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/cle.png"
+},
+
+{
+name:"Colorado Rockies",
+price:11,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/col.png"
+},
+
+{
+name:"Detroit Tigers",
+price:19,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/det.png"
+},
+
+{
+name:"Houston Astros",
+price:19,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/hou.png"
+},
+
+{
+name:"Kansas City Royals",
+price:17,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/kc.png"
+},
+
+{
+name:"Los Angeles Angels",
+price:18,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/laa.png"
+},
+
+{
+name:"Miami Marlins",
+price:12,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/mia.png"
+},
+
+{
+name:"Milwaukee Brewers",
+price:17,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/mil.png"
+},
+
+{
+name:"Minnesota Twins",
+price:13,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/min.png"
+},
+
+{
+name:"New York Mets",
+price:23,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/nym.png"
+},
+
+{
+name:"New York Yankees",
+price:33,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png"
+},
+
+{
+name:"Oakland Athletics",
+price:21,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/oak.png"
+},
+
+{
+name:"Philadelphia Phillies",
+price:23,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/phi.png"
+},
+
+{
+name:"San Diego Padres",
+price:16,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/sd.png"
+},
+
+{
+name:"San Francisco Giants",
+price:19,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/sf.png"
+},
+
+{
+name:"Seattle Mariners",
+price:21,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/sea.png"
+},
+
+{
+name:"St. Louis Cardinals",
+price:15,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/stl.png"
+},
+
+{
+name:"Tampa Bay Rays",
+price:15,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/tb.png"
+},
+
+{
+name:"Texas Rangers",
+price:17,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/tex.png"
+},
+
+{
+name:"Toronto Blue Jays",
+price:20,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/tor.png"
+},
+
+{
+name:"Washington Nationals",
+price:19,
+logo:"https://a.espncdn.com/i/teamlogos/mlb/500/wsh.png"
+},
+
+/* =========================
+   SPOTS SPÉCIAUX
+========================= */
+
+{
+name:"🏆 Hors Sports",
+price:15,
+logo:"https://cdn-icons-png.flaticon.com/512/857/857455.png",
+special:true
+},
+
+{
+name:"🏅 Autre Sport",
+price:15,
+logo:"https://cdn-icons-png.flaticon.com/512/857/857455.png",
+special:true
+}
+
 ];
 
-const teamsDiv = document.getElementById("teams");
-const recapDiv = document.getElementById("recap");
-const timerDiv = document.getElementById("timer");
+
+/* =====================================================
+   ELEMENTS HTML
+===================================================== */
+
+const teamsDiv =
+document.getElementById("teams");
+
+const recapDiv =
+document.getElementById("recap");
+
+const inscriptionTimer =
+document.getElementById("inscriptionTimer");
+
+const breakTimer =
+document.getElementById("breakTimer");
+
+const spotsCounter =
+document.getElementById("spotsCounter");
+
+const modal =
+document.getElementById("inscriptionModal");
+
+const selectedTeamDiv =
+document.getElementById("selectedTeam");
+
+const pseudoInput =
+document.getElementById("pseudo");
+
+const socialInput =
+document.getElementById("social");
+
+const confirmButton =
+document.getElementById("confirmButton");
+
+const messageDiv =
+document.getElementById("message");
 
 
-function renderTeams(taken=[]) {
-teamsDiv.innerHTML="";
-teams.forEach(t=>{
-const d=document.createElement("div");
-d.className="team"+(taken.includes(t.name)?" taken":"");
-d.innerHTML=`<img src="${t.logo}"><p>${t.name}</p><p class="price">${t.price}€</p>`;
-d.onclick=()=>selectTeam(t);
-teamsDiv.appendChild(d);
-});
+let selectedTeam = null;
+let inscriptionEnCours = false;
+
+
+/* =====================================================
+   AFFICHAGE DES EQUIPES
+===================================================== */
+
+function renderTeams(taken = []) {
+
+    teamsDiv.innerHTML = "";
+
+    teams.forEach(team => {
+
+        const div =
+        document.createElement("div");
+
+        div.className =
+        "team" +
+        (taken.includes(team.name) ? " taken" : "") +
+        (team.special ? " special" : "");
+
+        div.innerHTML = `
+            <img src="${team.logo}" alt="${team.name}">
+            <p><b>${team.name}</b></p>
+            <p class="price">${team.price}€</p>
+        `;
+
+        if (!taken.includes(team.name)) {
+
+            div.onclick = () => {
+
+                if (new Date() >= INSCRIPTIONS_END) {
+
+                    showMessage(
+                        "⛔ Les inscriptions sont fermées."
+                    );
+
+                    return;
+                }
+
+                openModal(team);
+            };
+
+        }
+
+        teamsDiv.appendChild(div);
+
+    });
+
 }
 
 
-async function selectTeam(team){
-const pseudo=prompt("Pseudo :"); if(!pseudo) return;
-const social=prompt("Réseau social :"); if(!social) return;
-if(!confirm(`Confirmer ${team.name} (${team.price}€)`)) return;
-const r=await fetch(ENDPOINT,{method:"POST",body:JSON.stringify({pseudo,social,team:team.name})});
-const j=await r.json();
-alert(j.status==="ok"?"Inscription validée":"Erreur");
+/* =====================================================
+   OUVERTURE DE LA MODALE
+===================================================== */
+
+function openModal(team) {
+
+    selectedTeam = team;
+
+    selectedTeamDiv.innerHTML = `
+        ${team.special ? "🌟" : "⚾"}
+        ${team.name}
+        — ${team.price}€
+    `;
+
+    pseudoInput.value = "";
+    socialInput.value = "";
+
+    modal.style.display = "flex";
+
+    setTimeout(() => {
+        pseudoInput.focus();
+    }, 100);
+
+}
+
+
+/* =====================================================
+   FERMETURE MODALE
+===================================================== */
+
+function closeModal() {
+
+    modal.style.display = "none";
+
+    selectedTeam = null;
+
+}
+
+
+/* Fermer en cliquant hors de la fenêtre */
+
+modal.addEventListener("click", function(e) {
+
+    if (e.target === modal) {
+        closeModal();
+    }
+
+});
+
+
+/* =====================================================
+   CONFIRMATION INSCRIPTION
+===================================================== */
+
+async function confirmInscription() {
+
+    if (inscriptionEnCours) return;
+
+    if (!selectedTeam) return;
+
+
+    const pseudo =
+    pseudoInput.value.trim();
+
+    const social =
+    socialInput.value;
+
+
+    if (!pseudo) {
+
+        alert("Merci d'indiquer ton pseudo.");
+
+        pseudoInput.focus();
+
+        return;
+    }
+
+
+    if (!social) {
+
+        alert("Merci de choisir ton réseau social.");
+
+        socialInput.focus();
+
+        return;
+    }
+
+
+    if (new Date() >= INSCRIPTIONS_END) {
+
+        alert(
+            "⛔ Les inscriptions sont désormais fermées."
+        );
+
+        closeModal();
+
+        loadData();
+
+        return;
+    }
+
+
+    const confirmation =
+    confirm(
+        `Confirmer ton inscription ?\n\n` +
+        `${selectedTeam.name}\n` +
+        `${selectedTeam.price}€\n\n` +
+        `Pseudo : ${pseudo}\n` +
+        `Réseau : ${social}`
+    );
+
+
+    if (!confirmation) return;
+
+
+    inscriptionEnCours = true;
+
+    confirmButton.disabled = true;
+    confirmButton.innerText = "Inscription...";
+
+
+    try {
+
+        const response =
+        await fetch(
+            ENDPOINT,
+            {
+                method:"POST",
+                body:JSON.stringify({
+                    pseudo:pseudo,
+                    social:social,
+                    team:selectedTeam.name
+                })
+            }
+        );
+
+
+        const result =
+        await response.json();
+
+
+        if (result.status === "ok") {
+
+            closeModal();
+
+            showMessage(
+                "✅ Inscription validée !"
+            );
+
+            await loadData();
+
+        } else {
+
+            alert(
+                "❌ Une erreur est survenue.\n\n" +
+                "Le spot n'a peut-être pas été enregistré."
+            );
+
+        }
+
+    } catch(error) {
+
+        console.error(error);
+
+        alert(
+            "❌ Impossible de contacter le serveur.\n\n" +
+            "Merci de réessayer."
+        );
+
+    }
+
+
+    inscriptionEnCours = false;
+
+    confirmButton.disabled = false;
+    confirmButton.innerText = "Confirmer";
+
+}
+
+
+/* =====================================================
+   CHARGEMENT DES DONNEES
+===================================================== */
+
+async function loadData() {
+
+    try {
+
+        const takenResponse =
+        await fetch(
+            ENDPOINT + "?mode=taken"
+        );
+
+        const taken =
+        await takenResponse.json();
+
+
+        renderTeams(taken);
+
+
+        const remaining =
+        teams.length - taken.length;
+
+
+        spotsCounter.innerHTML =
+        `🔥 ${remaining} spot${remaining > 1 ? "s" : ""} disponible${remaining > 1 ? "s" : ""} sur ${teams.length}`;
+
+
+        const recapResponse =
+        await fetch(
+            ENDPOINT + "?mode=recap"
+        );
+
+
+        const recap =
+        await recapResponse.json();
+
+
+        recapDiv.innerHTML = "";
+
+
+        if (!recap || recap.length === 0) {
+
+            recapDiv.innerHTML =
+            "<p>Aucune inscription pour le moment.</p>";
+
+            return;
+        }
+
+
+        recap.forEach(entry => {
+
+            const team =
+            teams.find(
+                x => x.name === entry.team
+            );
+
+
+            if (team) {
+
+                recapDiv.innerHTML += `
+
+                    <div class="recap-item">
+
+                        <img
+                            src="${team.logo}"
+                            alt="${team.name}"
+                        >
+
+                        <b>${entry.pseudo}</b>
+
+                        <span>
+                            (${team.name})
+                        </span>
+
+                    </div>
+
+                `;
+
+            }
+
+        });
+
+
+    } catch(error) {
+
+        console.error(
+            "Erreur chargement :",
+            error
+        );
+
+        spotsCounter.innerHTML =
+        "⚠️ Impossible de charger les spots";
+
+        recapDiv.innerHTML =
+        "<p>⚠️ Impossible de charger les inscriptions.</p>";
+
+    }
+
+}
+
+
+/* =====================================================
+   COMPTEUR INSCRIPTIONS
+===================================================== */
+
+function updateInscriptionTimer() {
+
+    const now =
+    new Date();
+
+    const diff =
+    INSCRIPTIONS_END - now;
+
+
+    if (diff <= 0) {
+
+        inscriptionTimer.innerHTML =
+        "⛔ Inscriptions fermées";
+
+        return;
+    }
+
+
+    const days =
+    Math.floor(diff / 86400000);
+
+    const hours =
+    Math.floor(
+        diff / 3600000
+    ) % 24;
+
+    const minutes =
+    Math.floor(
+        diff / 60000
+    ) % 60;
+
+    const seconds =
+    Math.floor(
+        diff / 1000
+    ) % 60;
+
+
+    let text = "";
+
+
+    if (days > 0) {
+        text += days + "j ";
+    }
+
+
+    text +=
+    String(hours).padStart(2,"0") + "h " +
+    String(minutes).padStart(2,"0") + "m " +
+    String(seconds).padStart(2,"0") + "s";
+
+
+    inscriptionTimer.innerHTML =
+    "⏳ " + text;
+
+}
+
+
+/* =====================================================
+   COMPTEUR OUVERTURE BREAK
+===================================================== */
+
+function updateBreakTimer() {
+
+    const now =
+    new Date();
+
+    const diff =
+    BREAK_START - now;
+
+
+    if (diff <= 0) {
+
+        breakTimer.innerHTML =
+        "🔥 BREAK EN COURS !";
+
+        breakTimer.classList.add(
+            "break-live"
+        );
+
+        return;
+    }
+
+
+    breakTimer.classList.remove(
+        "break-live"
+    );
+
+
+    const days =
+    Math.floor(diff / 86400000);
+
+    const hours =
+    Math.floor(
+        diff / 3600000
+    ) % 24;
+
+    const minutes =
+    Math.floor(
+        diff / 60000
+    ) % 60;
+
+    const seconds =
+    Math.floor(
+        diff / 1000
+    ) % 60;
+
+
+    let text = "";
+
+
+    if (days > 0) {
+
+        text +=
+        days +
+        " jour" +
+        (days > 1 ? "s " : " ");
+
+    }
+
+
+    text +=
+    String(hours).padStart(2,"0") +
+    "h " +
+
+    String(minutes).padStart(2,"0") +
+    "m " +
+
+    String(seconds).padStart(2,"0") +
+    "s";
+
+
+    breakTimer.innerHTML =
+    "🚀 Ouverture dans " + text;
+
+}
+
+
+/* =====================================================
+   MESSAGE TEMPORAIRE
+===================================================== */
+
+function showMessage(text) {
+
+    messageDiv.innerText =
+    text;
+
+    messageDiv.style.display =
+    "block";
+
+
+    setTimeout(() => {
+
+        messageDiv.style.display =
+        "none";
+
+    }, 3000);
+
+}
+
+
+/* =====================================================
+   INITIALISATION
+===================================================== */
+
 loadData();
-}
+
+updateInscriptionTimer();
+
+updateBreakTimer();
 
 
-async function loadData(){
-const t=await (await fetch(ENDPOINT+"?mode=taken")).json();
-renderTeams(t);
-const r=await (await fetch(ENDPOINT+"?mode=recap")).json();
-recapDiv.innerHTML="";
-r.forEach(e=>{
-const team=teams.find(x=>x.name===e.team);
-if(team) recapDiv.innerHTML+=`<div class="recap-item"><img src="${team.logo}"><b>${e.pseudo}</b> (${team.name})</div>`;
-});
-}
+/* Mise à jour des compteurs */
+
+setInterval(
+    updateInscriptionTimer,
+    1000
+);
+
+setInterval(
+    updateBreakTimer,
+    1000
+);
 
 
-function updateTimer(){
-const diff=deadline-new Date();
-if(diff<=0){timerDiv.innerHTML="⛔ Inscriptions fermées";return;}
-const h=Math.floor(diff/36e5),m=Math.floor(diff/6e4%60),s=Math.floor(diff/1e3%60);
-timerDiv.innerHTML=`⏳ Fin dans ${h}h ${m}m ${s}s`;
-}
+/* Actualisation des inscriptions */
 
+setInterval(
+    loadData,
+    15000
+);
 
-loadData(); updateTimer(); setInterval(loadData,15000); setInterval(updateTimer,1000);
 </script>
+
 </body>
 </html>
+```
