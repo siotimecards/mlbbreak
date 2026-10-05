@@ -1,12 +1,18 @@
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>MLB Break 10 – Inscriptions | Siotime</title>
 
 <style>
+
+/* =========================================================
+   BASE
+========================================================= */
 
 * {
     box-sizing: border-box;
@@ -20,6 +26,7 @@
     --card: #ffffff;
     --muted: #737780;
     --border: #e2e4e8;
+    --green: #137a3b;
 }
 
 html {
@@ -27,8 +34,7 @@ html {
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
+    margin: 0;
     background:
         radial-gradient(
             circle at top,
@@ -36,13 +42,15 @@ body {
             transparent 34%
         ),
         var(--bg);
-    margin: 0;
     color: #18191c;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
 }
 
-/* =========================
+
+/* =========================================================
    RÉSEAUX SOCIAUX
-========================= */
+========================================================= */
 
 .social-bar {
     background: linear-gradient(135deg, #050505, #17181b);
@@ -54,11 +62,11 @@ body {
 }
 
 .social-bar a {
+    width: 38px;
+    height: 38px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 38px;
-    height: 38px;
     border-radius: 50%;
     transition: .2s;
 }
@@ -74,9 +82,10 @@ body {
     object-fit: contain;
 }
 
-/* =========================
-   TITRES
-========================= */
+
+/* =========================================================
+   TITRE
+========================================================= */
 
 h1 {
     margin: 28px 10px 8px;
@@ -93,16 +102,17 @@ h1 {
     font-size: 16px;
 }
 
-/* =========================
+
+/* =========================================================
    COMPTEURS
-========================= */
+========================================================= */
 
 .countdown-container {
     max-width: 920px;
     margin: 20px auto 30px;
     padding: 0 15px;
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0,1fr));
     gap: 16px;
 }
 
@@ -143,9 +153,10 @@ h1 {
     font-weight: 900;
 }
 
-/* =========================
+
+/* =========================================================
    IMAGE BREAK
-========================= */
+========================================================= */
 
 .break-section {
     margin: 25px auto 35px;
@@ -164,9 +175,10 @@ h1 {
     border: 1px solid rgba(0,0,0,.08);
 }
 
-/* =========================
+
+/* =========================================================
    ÉQUIPES
-========================= */
+========================================================= */
 
 .section-title {
     margin: 35px 10px 8px;
@@ -174,34 +186,45 @@ h1 {
 }
 
 /* Compteur volontairement masqué */
+
 .spots-counter {
     display: none;
 }
 
 .teams {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(145px,1fr));
-    gap: 14px;
-    margin: 20px auto 42px;
+    width: 100%;
     max-width: 1180px;
+    margin: 20px auto 42px;
     padding: 0 15px;
+
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(145px,1fr));
+
+    gap: 14px;
 }
 
 .team {
     position: relative;
     width: 100%;
     min-height: 190px;
+
     padding: 15px 10px 13px;
+
     border: 1px solid var(--border);
     border-radius: 16px;
+
     background: var(--card);
+
     cursor: pointer;
+
     transition:
         transform .18s ease,
         box-shadow .18s ease,
         border-color .18s ease;
 
-    box-shadow: 0 5px 17px rgba(0,0,0,.055);
+    box-shadow:
+        0 5px 17px rgba(0,0,0,.055);
 
     display: flex;
     flex-direction: column;
@@ -212,63 +235,89 @@ h1 {
 .team:not(.taken):not(.locked):hover {
     transform: translateY(-5px);
     border-color: rgba(215,25,32,.45);
-    box-shadow: 0 12px 26px rgba(0,0,0,.11);
+
+    box-shadow:
+        0 12px 26px rgba(0,0,0,.11);
 }
 
 .team img {
     width: 78px;
     height: 78px;
-    object-fit: contain;
-    margin: 2px auto 8px;
-}
 
-.team p {
-    margin: 4px 0;
+    object-fit: contain;
+
+    margin: 2px auto 8px;
+
+    display: block;
 }
 
 .team-name {
     min-height: 38px;
+
+    margin: 4px 0;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     line-height: 1.15;
     font-size: 14px;
 }
 
 .price {
-    color: #137a3b;
+    color: var(--green);
+
     background: #eef9f1;
+
     border: 1px solid #d3eedb;
+
     border-radius: 999px;
+
     padding: 5px 12px;
+
     font-size: 15px;
     font-weight: 900;
-    margin-top: auto !important;
+
+    margin-top: auto;
 }
 
 .status-badge {
     margin-top: 8px;
+
     min-height: 20px;
+
     font-size: 11px;
     font-weight: 800;
+
     text-transform: uppercase;
+
     letter-spacing: .35px;
+
     color: #70737a;
 }
 
-/* Spot déjà pris */
+
+/* =========================================================
+   SPOT PRIS
+========================================================= */
 
 .taken {
     cursor: default;
+
     opacity: .58;
+
     background: #e7e8eb;
+
     border-color: #d0d2d6;
+
     filter: grayscale(.45);
 }
 
 .taken .price {
     color: #55585e;
+
     background: #f2f2f3;
+
     border-color: #d7d8dc;
 }
 
@@ -276,11 +325,16 @@ h1 {
     color: #666a71;
 }
 
-/* Spot verrouillé */
+
+/* =========================================================
+   SPOT VERROUILLÉ
+========================================================= */
 
 .locked {
     cursor: default;
+
     background: #f7f7f8;
+
     border-color: #dedfe2;
 }
 
@@ -288,13 +342,16 @@ h1 {
     color: #a10e14;
 }
 
-/* =========================
+
+/* =========================================================
    RÉCAP
-========================= */
+========================================================= */
 
 .recap-container {
     max-width: 850px;
+
     margin: 40px auto;
+
     padding: 0 15px 10px;
 }
 
@@ -304,35 +361,53 @@ h1 {
 
 .recap-item {
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     gap: 10px;
+
     margin: 8px 0;
+
     padding: 10px 14px;
+
     background: #fff;
+
     border: 1px solid var(--border);
+
     border-radius: 12px;
-    box-shadow: 0 3px 10px rgba(0,0,0,.04);
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,.04);
 }
 
 .recap-item img {
     width: 35px;
     height: 35px;
+
     object-fit: contain;
 }
 
-/* =========================
+
+/* =========================================================
    RÈGLEMENT
-========================= */
+========================================================= */
 
 .section {
     max-width: 850px;
+
     margin: 40px auto;
+
     padding: 24px 25px;
+
     background: #fff;
+
     border: 1px solid var(--border);
+
     border-radius: 18px;
-    box-shadow: 0 8px 24px rgba(0,0,0,.055);
+
+    box-shadow:
+        0 8px 24px rgba(0,0,0,.055);
 }
 
 .section ol {
@@ -340,30 +415,46 @@ h1 {
     margin-bottom: 0;
 }
 
-/* =========================
+
+/* =========================================================
    MODALE
-========================= */
+========================================================= */
 
 .modal {
     display: none;
+
     position: fixed;
+
     z-index: 1000;
+
     inset: 0;
+
     background: rgba(0,0,0,.72);
+
     backdrop-filter: blur(4px);
+
     align-items: center;
     justify-content: center;
+
     padding: 15px;
 }
 
 .modal-content {
     background: #fff;
+
     width: 100%;
+
     max-width: 430px;
+
     padding: 26px;
+
     border-radius: 20px;
+
     text-align: left;
-    box-shadow: 0 18px 55px rgba(0,0,0,.35);
+
+    box-shadow:
+        0 18px 55px rgba(0,0,0,.35);
+
     animation: modalIn .18s ease-out;
 }
 
@@ -371,66 +462,94 @@ h1 {
 
     from {
         opacity: 0;
-        transform: translateY(8px) scale(.98);
+        transform:
+            translateY(8px)
+            scale(.98);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform:
+            translateY(0)
+            scale(1);
     }
 
 }
 
 .modal-content h2 {
     text-align: center;
+
     margin: 0 0 15px;
 }
 
 .selected-team {
     text-align: center;
+
     font-weight: 900;
+
     margin-bottom: 20px;
+
     padding: 12px;
+
     border-radius: 12px;
+
     background: #f5f5f6;
 }
 
 .modal-content label {
     display: block;
+
     margin-top: 12px;
     margin-bottom: 6px;
+
     font-weight: 800;
 }
 
 .modal-content input,
 .modal-content select {
     width: 100%;
+
     padding: 12px;
+
     border: 1px solid #cfd1d5;
+
     border-radius: 10px;
+
     font-size: 16px;
+
     outline: none;
 }
 
 .modal-content input:focus,
 .modal-content select:focus {
     border-color: var(--red);
-    box-shadow: 0 0 0 3px rgba(215,25,32,.1);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(215,25,32,.1);
 }
 
 .modal-buttons {
     display: flex;
+
     gap: 10px;
+
     margin-top: 20px;
 }
 
 .modal-buttons button {
     flex: 1;
+
     padding: 13px;
+
     border: none;
+
     border-radius: 10px;
+
     cursor: pointer;
+
     font-size: 15px;
+
     font-weight: 900;
 }
 
@@ -439,33 +558,60 @@ h1 {
 }
 
 .confirm-btn {
-    background: linear-gradient(135deg,#111216,#292a2f);
+    background:
+        linear-gradient(
+            135deg,
+            #111216,
+            #292a2f
+        );
+
     color: #fff;
 }
 
-/* =========================
+.confirm-btn:disabled {
+    opacity: .55;
+    cursor: wait;
+}
+
+
+/* =========================================================
    MESSAGE
-========================= */
+========================================================= */
 
 .message {
     position: fixed;
+
     z-index: 2000;
+
     top: 20px;
+
     left: 50%;
-    transform: translateX(-50%);
+
+    transform:
+        translateX(-50%);
+
     width: min(92%,520px);
+
     padding: 14px 20px;
+
     border-radius: 12px;
+
     background: #111216;
+
     color: #fff;
+
     display: none;
+
     font-weight: 800;
-    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.25);
 }
 
-/* =========================
+
+/* =========================================================
    RESPONSIVE
-========================= */
+========================================================= */
 
 @media(max-width:700px) {
 
@@ -474,8 +620,11 @@ h1 {
     }
 
     .teams {
-        grid-template-columns: repeat(2,minmax(0,1fr));
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+
         gap: 10px;
+
         padding: 0 10px;
     }
 
@@ -496,29 +645,29 @@ h1 {
         margin: 30px 12px;
         padding: 20px 17px;
     }
-
 }
 
 @media(max-width:380px) {
 
     .team {
         min-height: 170px;
+
         padding-left: 7px;
         padding-right: 7px;
     }
-
 }
 
 </style>
+
 </head>
 
 
 <body>
 
 
-<!-- =========================
+<!-- =========================================================
      RÉSEAUX SOCIAUX
-========================= -->
+========================================================= -->
 
 <div class="social-bar">
 
@@ -527,40 +676,49 @@ h1 {
         target="_blank"
         rel="noopener noreferrer"
     >
+
         <img
             src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg"
             alt="YouTube"
         >
+
     </a>
+
 
     <a
         href="https://www.instagram.com/siotime.cards/"
         target="_blank"
         rel="noopener noreferrer"
     >
+
         <img
             src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
             alt="Instagram"
         >
+
     </a>
+
 
     <a
         href="https://x.com/Siotimecards"
         target="_blank"
         rel="noopener noreferrer"
     >
+
         <img
             src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg"
             alt="X"
         >
+
     </a>
 
 </div>
 
 
-<!-- =========================
+
+<!-- =========================================================
      TITRE
-========================= -->
+========================================================= -->
 
 <h1>
     ⚾ Inscriptions MLB Break #10 – Siotime
@@ -571,9 +729,10 @@ h1 {
 </div>
 
 
-<!-- =========================
+
+<!-- =========================================================
      COMPTEURS
-========================= -->
+========================================================= -->
 
 <div class="countdown-container">
 
@@ -586,7 +745,9 @@ h1 {
         <div
             class="countdown inscription-countdown"
             id="inscriptionTimer"
-        ></div>
+        >
+            Chargement...
+        </div>
 
     </div>
 
@@ -600,16 +761,19 @@ h1 {
         <div
             class="countdown break-countdown"
             id="breakTimer"
-        ></div>
+        >
+            Chargement...
+        </div>
 
     </div>
 
 </div>
 
 
-<!-- =========================
-     IMAGE BREAK
-========================= -->
+
+<!-- =========================================================
+     IMAGE
+========================================================= -->
 
 <div class="break-section">
 
@@ -625,9 +789,10 @@ h1 {
 </div>
 
 
-<!-- =========================
-     ÉQUIPES MLB
-========================= -->
+
+<!-- =========================================================
+     ÉQUIPES
+========================================================= -->
 
 <h2 class="section-title">
     ⚾ Équipes MLB
@@ -639,9 +804,10 @@ h1 {
 ></div>
 
 
-<!-- =========================
+
+<!-- =========================================================
      RÉCAP
-========================= -->
+========================================================= -->
 
 <div class="recap-container">
 
@@ -656,9 +822,10 @@ h1 {
 </div>
 
 
-<!-- =========================
+
+<!-- =========================================================
      RÈGLEMENT
-========================= -->
+========================================================= -->
 
 <div class="section">
 
@@ -697,9 +864,10 @@ h1 {
 </div>
 
 
-<!-- =========================
+
+<!-- =========================================================
      MODALE
-========================= -->
+========================================================= -->
 
 <div
     class="modal"
@@ -711,6 +879,7 @@ h1 {
         <h2>
             📝 Inscription
         </h2>
+
 
         <div
             class="selected-team"
@@ -759,15 +928,17 @@ h1 {
 
             <button
                 class="cancel-btn"
-                onclick="closeModal()"
+                id="cancelButton"
+                type="button"
             >
                 Annuler
             </button>
 
+
             <button
                 class="confirm-btn"
                 id="confirmButton"
-                onclick="confirmInscription()"
+                type="button"
             >
                 Confirmer
             </button>
@@ -779,9 +950,10 @@ h1 {
 </div>
 
 
-<!-- =========================
+
+<!-- =========================================================
      MESSAGE
-========================= -->
+========================================================= -->
 
 <div
     class="message"
@@ -789,262 +961,273 @@ h1 {
 ></div>
 
 
+
 <script>
 
-/* =====================================================
+/* =========================================================
    CONFIGURATION
-===================================================== */
+========================================================= */
 
 const ENDPOINT =
 "https://script.google.com/macros/s/AKfycbyMYlvpAhowyBgtXORXSEooukFbl9hYfeVbC05FbQdyfDuizN2fuUWNrpLkowDGey4yww/exec";
 
 
-/* =====================================================
-   DATES DU BREAK
-=====================================================
+/* =========================================================
+   DATES
+=========================================================
 
-   JavaScript compte les mois de 0 à 11.
+   IMPORTANT :
+   JavaScript compte les mois à partir de 0.
 
-   0 = janvier
-   1 = février
-   ...
-   8 = septembre
-   9 = octobre
+   9 = octobre.
 
-===================================================== */
+========================================================= */
 
 
-/* 📝 Ouverture des inscriptions */
+/* 📝 Ouverture des inscriptions
+   05 octobre 2026 à 20h */
 
 const INSCRIPTIONS_START =
-new Date(2026, 9, 5, 20, 0, 0);
+    new Date(2026, 9, 5, 20, 0, 0);
 
 
-/* ⛔ Fin des inscriptions */
+/* ⛔ Fermeture des inscriptions
+   15 octobre 2026 à 20h */
 
 const INSCRIPTIONS_END =
-new Date(2026, 9, 15, 20, 0, 0);
+    new Date(2026, 9, 15, 20, 0, 0);
 
 
-/* 🔥 Ouverture du Break */
+/* 🔥 Début du Break
+   15 octobre 2026 à 20h */
 
 const BREAK_START =
-new Date(2026, 9, 15, 20, 0, 0);
+    new Date(2026, 9, 15, 20, 0, 0);
 
 
 
-/* =====================================================
+/* =========================================================
    ÉQUIPES MLB
-===================================================== */
+=========================================================
+
+   28 équipes.
+
+   Dodgers ❌
+   Pirates ❌
+
+   Les IDs correspondent aux identifiants MLB officiels.
+
+========================================================= */
 
 const teams = [
 
     {
         name: "Arizona Diamondbacks",
         price: 17,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/ari.png"
+        logo: "https://www.mlbstatic.com/team-logos/109.svg"
     },
 
     {
         name: "Atlanta Braves",
         price: 22,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/atl.png"
+        logo: "https://www.mlbstatic.com/team-logos/144.svg"
     },
 
     {
         name: "Baltimore Orioles",
         price: 28,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/bal.png"
+        logo: "https://www.mlbstatic.com/team-logos/110.svg"
     },
 
     {
         name: "Boston Red Sox",
         price: 29,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/bos.png"
+        logo: "https://www.mlbstatic.com/team-logos/111.svg"
     },
 
     {
         name: "Chicago Cubs",
         price: 15,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/chc.png"
+        logo: "https://www.mlbstatic.com/team-logos/112.svg"
     },
 
     {
         name: "Chicago White Sox",
         price: 25,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/chw.png"
+        logo: "https://www.mlbstatic.com/team-logos/145.svg"
     },
 
     {
         name: "Cincinnati Reds",
         price: 18,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/cin.png"
+        logo: "https://www.mlbstatic.com/team-logos/113.svg"
     },
 
     {
         name: "Cleveland Guardians",
         price: 18,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/cle.png"
+        logo: "https://www.mlbstatic.com/team-logos/114.svg"
     },
 
     {
         name: "Colorado Rockies",
         price: 24,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/col.png"
+        logo: "https://www.mlbstatic.com/team-logos/115.svg"
     },
 
     {
         name: "Detroit Tigers",
         price: 21,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/det.png"
+        logo: "https://www.mlbstatic.com/team-logos/116.svg"
     },
 
     {
         name: "Houston Astros",
         price: 20,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/hou.png"
+        logo: "https://www.mlbstatic.com/team-logos/117.svg"
     },
 
     {
         name: "Kansas City Royals",
         price: 22,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/kc.png"
+        logo: "https://www.mlbstatic.com/team-logos/118.svg"
     },
 
     {
         name: "Los Angeles Angels",
         price: 18,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/laa.png"
+        logo: "https://www.mlbstatic.com/team-logos/108.svg"
     },
-
 
     {
         name: "Miami Marlins",
         price: 20,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/mia.png"
+        logo: "https://www.mlbstatic.com/team-logos/146.svg"
     },
 
     {
         name: "Milwaukee Brewers",
         price: 29,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/mil.png"
+        logo: "https://www.mlbstatic.com/team-logos/158.svg"
     },
 
     {
         name: "Minnesota Twins",
         price: 17,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/min.png"
+        logo: "https://www.mlbstatic.com/team-logos/142.svg"
     },
 
     {
         name: "New York Mets",
         price: 25,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/nym.png"
+        logo: "https://www.mlbstatic.com/team-logos/121.svg"
     },
 
     {
         name: "New York Yankees",
         price: 33,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/nyy.png"
+        logo: "https://www.mlbstatic.com/team-logos/147.svg"
     },
 
     {
         name: "Oakland Athletics",
         price: 31,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/oak.png"
+        logo: "https://www.mlbstatic.com/team-logos/133.svg"
     },
 
     {
         name: "Philadelphia Phillies",
         price: 22,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/phi.png"
+        logo: "https://www.mlbstatic.com/team-logos/143.svg"
     },
-
 
     {
         name: "San Diego Padres",
         price: 17,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/sd.png"
+        logo: "https://www.mlbstatic.com/team-logos/135.svg"
     },
 
     {
         name: "San Francisco Giants",
         price: 24,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/sf.png"
+        logo: "https://www.mlbstatic.com/team-logos/137.svg"
     },
 
     {
         name: "Seattle Mariners",
         price: 24,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/sea.png"
+        logo: "https://www.mlbstatic.com/team-logos/136.svg"
     },
 
     {
         name: "St. Louis Cardinals",
         price: 21,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/stl.png"
+        logo: "https://www.mlbstatic.com/team-logos/138.svg"
     },
 
     {
         name: "Tampa Bay Rays",
         price: 17,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/tb.png"
+        logo: "https://www.mlbstatic.com/team-logos/139.svg"
     },
 
     {
         name: "Texas Rangers",
         price: 20,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/tex.png"
+        logo: "https://www.mlbstatic.com/team-logos/140.svg"
     },
 
     {
         name: "Toronto Blue Jays",
         price: 26,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/tor.png"
+        logo: "https://www.mlbstatic.com/team-logos/141.svg"
     },
 
     {
         name: "Washington Nationals",
         price: 25,
-        logo: "https://a.espncdn.com/i/teamlogos/mlb/500/wsh.png"
+        logo: "https://www.mlbstatic.com/team-logos/120.svg"
     }
 
 ];
 
 
-/* =====================================================
-   ELEMENTS HTML
-===================================================== */
+/* =========================================================
+   ÉLÉMENTS
+========================================================= */
 
 const teamsDiv =
-document.getElementById("teams");
+    document.getElementById("teams");
 
 const recapDiv =
-document.getElementById("recap");
+    document.getElementById("recap");
 
 const inscriptionTimer =
-document.getElementById("inscriptionTimer");
+    document.getElementById("inscriptionTimer");
 
 const breakTimer =
-document.getElementById("breakTimer");
+    document.getElementById("breakTimer");
 
 const modal =
-document.getElementById("inscriptionModal");
+    document.getElementById("inscriptionModal");
 
 const selectedTeamDiv =
-document.getElementById("selectedTeam");
+    document.getElementById("selectedTeam");
 
 const pseudoInput =
-document.getElementById("pseudo");
+    document.getElementById("pseudo");
 
 const socialInput =
-document.getElementById("social");
+    document.getElementById("social");
 
 const confirmButton =
-document.getElementById("confirmButton");
+    document.getElementById("confirmButton");
+
+const cancelButton =
+    document.getElementById("cancelButton");
 
 const messageDiv =
-document.getElementById("message");
+    document.getElementById("message");
 
 
 let selectedTeam = null;
@@ -1052,45 +1235,91 @@ let selectedTeam = null;
 let inscriptionEnCours = false;
 
 
-/* =====================================================
+
+/* =========================================================
+   OUTILS
+========================================================= */
+
+function isInscriptionOpen() {
+
+    const now = new Date();
+
+    return (
+        now >= INSCRIPTIONS_START &&
+        now < INSCRIPTIONS_END
+    );
+
+}
+
+
+function isBeforeInscription() {
+
+    return new Date() < INSCRIPTIONS_START;
+
+}
+
+
+function isInscriptionClosed() {
+
+    return new Date() >= INSCRIPTIONS_END;
+
+}
+
+
+/* =========================================================
    AFFICHAGE DES ÉQUIPES
-===================================================== */
+=========================================================
+
+   IMPORTANT :
+
+   Cette fonction est appelée IMMÉDIATEMENT.
+
+   Elle ne dépend donc pas de Google Apps Script.
+
+========================================================= */
 
 function renderTeams(taken = []) {
 
     teamsDiv.innerHTML = "";
 
-    const now = new Date();
-
-    const inscriptionsNotStarted =
-        now < INSCRIPTIONS_START;
-
-    const inscriptionsClosed =
-        now >= INSCRIPTIONS_END;
+    const takenSet =
+        new Set(
+            Array.isArray(taken)
+                ? taken
+                : []
+        );
 
 
     teams.forEach(team => {
 
         const isTaken =
-            taken.includes(team.name);
+            takenSet.has(team.name);
 
+        const inscriptionOpen =
+            isInscriptionOpen();
 
         const div =
             document.createElement("div");
 
 
-        div.className =
-            "team" +
-            (isTaken ? " taken" : "") +
-            (
-                !isTaken &&
-                (
-                    inscriptionsNotStarted ||
-                    inscriptionsClosed
-                )
-                ? " locked"
-                : ""
-            );
+        if (isTaken) {
+
+            div.className =
+                "team taken";
+
+        }
+        else if (!inscriptionOpen) {
+
+            div.className =
+                "team locked";
+
+        }
+        else {
+
+            div.className =
+                "team";
+
+        }
 
 
         let status = "";
@@ -1098,22 +1327,26 @@ function renderTeams(taken = []) {
 
         if (isTaken) {
 
-            status = "🔒 Spot pris";
+            status =
+                "🔒 Spot pris";
 
         }
-        else if (inscriptionsNotStarted) {
+        else if (isBeforeInscription()) {
 
-            status = "⏳ Bientôt disponible";
+            status =
+                "⏳ Bientôt disponible";
 
         }
-        else if (inscriptionsClosed) {
+        else if (isInscriptionClosed()) {
 
-            status = "⛔ Inscriptions fermées";
+            status =
+                "⛔ Inscriptions fermées";
 
         }
         else {
 
-            status = "✓ Disponible";
+            status =
+                "✓ Disponible";
 
         }
 
@@ -1124,6 +1357,7 @@ function renderTeams(taken = []) {
                 src="${team.logo}"
                 alt="${team.name}"
                 loading="lazy"
+                onerror="this.style.visibility='hidden';"
             >
 
             <p class="team-name">
@@ -1142,19 +1376,19 @@ function renderTeams(taken = []) {
 
 
         /*
-         * Uniquement les spots disponibles
-         * pendant la période d'inscription
-         * sont cliquables.
+         * Seulement les spots disponibles
+         * pendant les inscriptions sont cliquables.
          */
 
         if (
             !isTaken &&
-            !inscriptionsNotStarted &&
-            !inscriptionsClosed
+            inscriptionOpen
         ) {
 
-            div.onclick = () =>
-                openModal(team);
+            div.addEventListener(
+                "click",
+                () => openModal(team)
+            );
 
         }
 
@@ -1166,25 +1400,18 @@ function renderTeams(taken = []) {
 }
 
 
-/* =====================================================
-   OUVERTURE MODALE
-===================================================== */
+
+/* =========================================================
+   MODALE
+========================================================= */
 
 function openModal(team) {
 
-    const now = new Date();
+    if (!isInscriptionOpen()) {
 
-
-    /*
-     * Double sécurité :
-     * impossible d'ouvrir une inscription
-     * hors période.
-     */
-
-    if (
-        now < INSCRIPTIONS_START ||
-        now >= INSCRIPTIONS_END
-    ) {
+        showMessage(
+            "⛔ Les inscriptions sont fermées."
+        );
 
         return;
 
@@ -1194,9 +1421,8 @@ function openModal(team) {
     selectedTeam = team;
 
 
-    selectedTeamDiv.innerHTML = `
-        ⚾ ${team.name} — ${team.price}€
-    `;
+    selectedTeamDiv.innerHTML =
+        `⚾ ${team.name} — ${team.price}€`;
 
 
     pseudoInput.value = "";
@@ -1207,18 +1433,13 @@ function openModal(team) {
     modal.style.display = "flex";
 
 
-    setTimeout(() => {
-
-        pseudoInput.focus();
-
-    }, 100);
+    setTimeout(
+        () => pseudoInput.focus(),
+        100
+    );
 
 }
 
-
-/* =====================================================
-   FERMETURE MODALE
-===================================================== */
 
 function closeModal() {
 
@@ -1229,15 +1450,19 @@ function closeModal() {
 }
 
 
-/* =====================================================
-   FERMER EN CLIQUANT À L'EXTÉRIEUR
-===================================================== */
+cancelButton.addEventListener(
+    "click",
+    closeModal
+);
+
 
 modal.addEventListener(
     "click",
-    function(e) {
+    event => {
 
-        if (e.target === modal) {
+        if (
+            event.target === modal
+        ) {
 
             closeModal();
 
@@ -1247,9 +1472,9 @@ modal.addEventListener(
 );
 
 
-/* =====================================================
+/* =========================================================
    CONFIRMATION INSCRIPTION
-===================================================== */
+========================================================= */
 
 async function confirmInscription() {
 
@@ -1263,19 +1488,9 @@ async function confirmInscription() {
     }
 
 
-    const now = new Date();
+    if (!isInscriptionOpen()) {
 
-
-    /*
-     * Sécurité supplémentaire
-     */
-
-    if (
-        now < INSCRIPTIONS_START ||
-        now >= INSCRIPTIONS_END
-    ) {
-
-        alert(
+        showMessage(
             "⛔ Les inscriptions sont fermées."
         );
 
@@ -1321,11 +1536,22 @@ async function confirmInscription() {
 
     const confirmation =
         confirm(
-            `Confirmer ton inscription ?\n\n` +
-            `${selectedTeam.name}\n` +
-            `${selectedTeam.price}€\n\n` +
-            `Pseudo : ${pseudo}\n` +
-            `Réseau : ${social}`
+
+            "Confirmer ton inscription ?\n\n" +
+
+            selectedTeam.name +
+            "\n" +
+
+            selectedTeam.price +
+            "€\n\n" +
+
+            "Pseudo : " +
+            pseudo +
+            "\n" +
+
+            "Réseau : " +
+            social
+
         );
 
 
@@ -1376,15 +1602,16 @@ async function confirmInscription() {
             await response.json();
 
 
-        if (result.status === "ok") {
+        if (
+            result &&
+            result.status === "ok"
+        ) {
 
             closeModal();
-
 
             showMessage(
                 "✅ Inscription validée !"
             );
-
 
             await loadData();
 
@@ -1398,11 +1625,13 @@ async function confirmInscription() {
 
         }
 
-
     }
     catch (error) {
 
-        console.error(error);
+        console.error(
+            "Erreur inscription :",
+            error
+        );
 
 
         alert(
@@ -1423,22 +1652,28 @@ async function confirmInscription() {
 }
 
 
-/* =====================================================
-   CHARGEMENT DES DONNÉES
-===================================================== */
+
+/* =========================================================
+   CHARGEMENT DES DONNÉES GOOGLE
+========================================================= */
 
 async function loadData() {
 
-    try {
+    /*
+     * Les équipes sont déjà affichées.
+     * On tente simplement de récupérer
+     * les spots pris.
+     */
 
-        /*
-         * Récupération des spots déjà pris
-         */
+    try {
 
         const takenResponse =
             await fetch(
-                ENDPOINT + "?mode=taken",
+                ENDPOINT +
+                "?mode=taken&_=" +
+                Date.now(),
                 {
+                    method: "GET",
                     cache: "no-store"
                 }
             );
@@ -1447,9 +1682,8 @@ async function loadData() {
         if (!takenResponse.ok) {
 
             throw new Error(
-                "Serveur indisponible (" +
-                takenResponse.status +
-                ")"
+                "Erreur taken : " +
+                takenResponse.status
             );
 
         }
@@ -1469,13 +1703,16 @@ async function loadData() {
 
 
         /*
-         * Récupération du récapitulatif
+         * Récapitulatif
          */
 
         const recapResponse =
             await fetch(
-                ENDPOINT + "?mode=recap",
+                ENDPOINT +
+                "?mode=recap&_=" +
+                Date.now(),
                 {
+                    method: "GET",
                     cache: "no-store"
                 }
             );
@@ -1484,7 +1721,8 @@ async function loadData() {
         if (!recapResponse.ok) {
 
             throw new Error(
-                "Impossible de charger le récapitulatif"
+                "Erreur recap : " +
+                recapResponse.status
             );
 
         }
@@ -1494,88 +1732,225 @@ async function loadData() {
             await recapResponse.json();
 
 
-        recapDiv.innerHTML = "";
-
-
-        if (
-            !recap ||
-            recap.length === 0
-        ) {
-
-            recapDiv.innerHTML =
-                "<p>Aucune inscription pour le moment.</p>";
-
-            return;
-
-        }
-
-
-        recap.forEach(entry => {
-
-            const team =
-                teams.find(
-                    x =>
-                        x.name === entry.team
-                );
-
-
-            if (team) {
-
-                recapDiv.innerHTML += `
-
-                    <div class="recap-item">
-
-                        <img
-                            src="${team.logo}"
-                            alt="${team.name}"
-                        >
-
-                        <b>
-                            ${entry.pseudo}
-                        </b>
-
-                        <span>
-                            (${team.name})
-                        </span>
-
-                    </div>
-
-                `;
-
-            }
-
-        });
+        renderRecap(
+            Array.isArray(recap)
+                ? recap
+                : []
+        );
 
 
     }
     catch (error) {
 
         console.error(
-            "Erreur chargement :",
+            "Erreur chargement Google :",
             error
         );
 
 
         /*
+         * TRÈS IMPORTANT :
+         *
          * Même si Google Apps Script
-         * ne répond pas, les 28 équipes
-         * restent affichées avec leurs prix.
+         * ne répond pas, les équipes
+         * restent affichées.
          */
 
         renderTeams([]);
 
 
-        recapDiv.innerHTML =
-            "<p>⚠️ Impossible de charger les inscriptions pour le moment.</p>";
+        recapDiv.innerHTML = `
+
+            <p>
+                ⚠️ Impossible de charger les inscriptions
+                pour le moment.
+            </p>
+
+        `;
 
     }
 
 }
 
 
-/* =====================================================
+
+/* =========================================================
+   AFFICHAGE DU RÉCAP
+========================================================= */
+
+function renderRecap(recap) {
+
+    recapDiv.innerHTML = "";
+
+
+    if (
+        !Array.isArray(recap) ||
+        recap.length === 0
+    ) {
+
+        recapDiv.innerHTML =
+            "<p>Aucune inscription pour le moment.</p>";
+
+        return;
+
+    }
+
+
+    let displayed = 0;
+
+
+    recap.forEach(entry => {
+
+        const team =
+            teams.find(
+                item =>
+                    item.name === entry.team
+            );
+
+
+        if (!team) {
+            return;
+        }
+
+
+        displayed++;
+
+
+        const item =
+            document.createElement("div");
+
+
+        item.className =
+            "recap-item";
+
+
+        item.innerHTML = `
+
+            <img
+                src="${team.logo}"
+                alt="${team.name}"
+                loading="lazy"
+            >
+
+            <b>
+                ${escapeHtml(
+                    entry.pseudo || ""
+                )}
+            </b>
+
+            <span>
+                (${escapeHtml(
+                    team.name
+                )})
+            </span>
+
+        `;
+
+
+        recapDiv.appendChild(item);
+
+    });
+
+
+    if (displayed === 0) {
+
+        recapDiv.innerHTML =
+            "<p>Aucune inscription pour le moment.</p>";
+
+    }
+
+}
+
+
+
+/* =========================================================
+   PROTECTION TEXTE
+========================================================= */
+
+function escapeHtml(value) {
+
+    return String(value)
+
+        .replaceAll("&", "&amp;")
+
+        .replaceAll("<", "&lt;")
+
+        .replaceAll(">", "&gt;")
+
+        .replaceAll('"', "&quot;")
+
+        .replaceAll("'", "&#039;");
+
+}
+
+
+
+/* =========================================================
    COMPTEUR INSCRIPTIONS
-===================================================== */
+========================================================= */
+
+function formatDuration(diff) {
+
+    const totalSeconds =
+        Math.max(
+            0,
+            Math.floor(
+                diff / 1000
+            )
+        );
+
+
+    const days =
+        Math.floor(
+            totalSeconds / 86400
+        );
+
+
+    const hours =
+        Math.floor(
+            (totalSeconds % 86400) / 3600
+        );
+
+
+    const minutes =
+        Math.floor(
+            (totalSeconds % 3600) / 60
+        );
+
+
+    const seconds =
+        totalSeconds % 60;
+
+
+    let text = "";
+
+
+    if (days > 0) {
+
+        text +=
+            days +
+            (days > 1
+                ? " jours "
+                : " jour ");
+
+    }
+
+
+    text +=
+        String(hours).padStart(2,"0") +
+        "h " +
+
+        String(minutes).padStart(2,"0") +
+        "m " +
+
+        String(seconds).padStart(2,"0") +
+        "s";
+
+
+    return text;
+
+}
+
 
 function updateInscriptionTimer() {
 
@@ -1591,60 +1966,11 @@ function updateInscriptionTimer() {
         now < INSCRIPTIONS_START
     ) {
 
-        const diff =
-            INSCRIPTIONS_START - now;
-
-
-        const days =
-            Math.floor(
-                diff / 86400000
-            );
-
-
-        const hours =
-            Math.floor(
-                diff / 3600000
-            ) % 24;
-
-
-        const minutes =
-            Math.floor(
-                diff / 60000
-            ) % 60;
-
-
-        const seconds =
-            Math.floor(
-                diff / 1000
-            ) % 60;
-
-
-        let text = "";
-
-
-        if (days > 0) {
-
-            text +=
-                days + "j ";
-
-        }
-
-
-        text +=
-            String(hours).padStart(2,"0") +
-            "h " +
-
-            String(minutes).padStart(2,"0") +
-            "m " +
-
-            String(seconds).padStart(2,"0") +
-            "s";
-
-
         inscriptionTimer.innerHTML =
             "📝 Ouverture dans " +
-            text;
-
+            formatDuration(
+                INSCRIPTIONS_START - now
+            );
 
         return;
 
@@ -1668,69 +1994,22 @@ function updateInscriptionTimer() {
 
 
     /*
-     * Pendant les inscriptions
+     * Inscriptions ouvertes
      */
-
-    const diff =
-        INSCRIPTIONS_END - now;
-
-
-    const days =
-        Math.floor(
-            diff / 86400000
-        );
-
-
-    const hours =
-        Math.floor(
-            diff / 3600000
-        ) % 24;
-
-
-    const minutes =
-        Math.floor(
-            diff / 60000
-        ) % 60;
-
-
-    const seconds =
-        Math.floor(
-            diff / 1000
-        ) % 60;
-
-
-    let text = "";
-
-
-    if (days > 0) {
-
-        text +=
-            days + "j ";
-
-    }
-
-
-    text +=
-        String(hours).padStart(2,"0") +
-        "h " +
-
-        String(minutes).padStart(2,"0") +
-        "m " +
-
-        String(seconds).padStart(2,"0") +
-        "s";
-
 
     inscriptionTimer.innerHTML =
         "⏳ Fin des inscriptions dans " +
-        text;
+        formatDuration(
+            INSCRIPTIONS_END - now
+        );
 
 }
 
 
-/* =====================================================
-   COMPTEUR OUVERTURE BREAK
-===================================================== */
+
+/* =========================================================
+   COMPTEUR BREAK
+========================================================= */
 
 function updateBreakTimer() {
 
@@ -1741,10 +2020,6 @@ function updateBreakTimer() {
     const diff =
         BREAK_START - now;
 
-
-    /*
-     * Break démarré
-     */
 
     if (diff <= 0) {
 
@@ -1767,64 +2042,17 @@ function updateBreakTimer() {
     );
 
 
-    const days =
-        Math.floor(
-            diff / 86400000
-        );
-
-
-    const hours =
-        Math.floor(
-            diff / 3600000
-        ) % 24;
-
-
-    const minutes =
-        Math.floor(
-            diff / 60000
-        ) % 60;
-
-
-    const seconds =
-        Math.floor(
-            diff / 1000
-        ) % 60;
-
-
-    let text = "";
-
-
-    if (days > 0) {
-
-        text +=
-            days +
-            " jour" +
-            (days > 1 ? "s " : " ");
-
-    }
-
-
-    text +=
-        String(hours).padStart(2,"0") +
-        "h " +
-
-        String(minutes).padStart(2,"0") +
-        "m " +
-
-        String(seconds).padStart(2,"0") +
-        "s";
-
-
     breakTimer.innerHTML =
         "🚀 Ouverture dans " +
-        text;
+        formatDuration(diff);
 
 }
 
 
-/* =====================================================
-   MESSAGE TEMPORAIRE
-===================================================== */
+
+/* =========================================================
+   MESSAGE
+========================================================= */
 
 function showMessage(text) {
 
@@ -1836,36 +2064,58 @@ function showMessage(text) {
         "block";
 
 
-    setTimeout(() => {
+    setTimeout(
+        () => {
 
-        messageDiv.style.display =
-            "none";
+            messageDiv.style.display =
+                "none";
 
-    }, 3000);
+        },
+        3000
+    );
 
 }
 
 
-/* =====================================================
-   INITIALISATION
-===================================================== */
 
-loadData();
+/* =========================================================
+   INITIALISATION
+========================================================= */
+
+/*
+ * 1. AFFICHAGE IMMÉDIAT DES 28 ÉQUIPES
+ *
+ * Cela ne dépend PAS de Google Apps Script.
+ */
+
+renderTeams([]);
+
+
+/*
+ * 2. Compteurs
+ */
 
 updateInscriptionTimer();
 
 updateBreakTimer();
 
 
-/* =====================================================
-   MISE À JOUR DES COMPTEURS
-===================================================== */
+/*
+ * 3. Données Google
+ */
+
+loadData();
+
+
+
+/* =========================================================
+   ACTUALISATION COMPTEURS
+========================================================= */
 
 setInterval(
     updateInscriptionTimer,
     1000
 );
-
 
 setInterval(
     updateBreakTimer,
@@ -1873,17 +2123,39 @@ setInterval(
 );
 
 
-/* =====================================================
+
+/* =========================================================
    ACTUALISATION DES INSCRIPTIONS
-===================================================== */
+========================================================= */
 
 setInterval(
     loadData,
-    5000
+    10000
+);
+
+
+
+/* =========================================================
+   RAFRAÎCHISSEMENT AUTOMATIQUE DU STATUT
+========================================================= */
+
+setInterval(
+    () => {
+
+        /*
+         * Permet de passer automatiquement
+         * de "Bientôt disponible" à
+         * "Disponible" à 20h.
+         */
+
+        loadData();
+
+    },
+    30000
 );
 
 </script>
 
 </body>
 </html>
- marche pas 
+```
