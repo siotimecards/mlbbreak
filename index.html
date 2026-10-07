@@ -1286,18 +1286,24 @@ function renderTeams(taken = []) {
 
     teamsDiv.innerHTML = "";
 
-    const takenSet =
-        new Set(
-            Array.isArray(taken)
-                ? taken
-                : []
-        );
+   const takenSet = new Set(
+    (Array.isArray(taken) ? taken : [])
+        .map(team =>
+            String(team)
+                .trim()
+                .toLowerCase()
+        )
+);
 
 
     teams.forEach(team => {
 
-        const isTaken =
-            takenSet.has(team.name);
+       const isTaken =
+    takenSet.has(
+        String(team.name)
+            .trim()
+            .toLowerCase()
+    );
 
         const inscriptionOpen =
             isInscriptionOpen();
