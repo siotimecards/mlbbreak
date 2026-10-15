@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MLB Break 10 – Inscriptions | Siotime</title>
+<title>MLB Break 11 – Inscriptions | Siotime</title>
 
 <style>
 
@@ -721,11 +721,11 @@ h1 {
 ========================================================= -->
 
 <h1>
-    ⚾ Inscriptions MLB Break #10 – Siotime
+    ⚾ Inscriptions MLB Break #11 – Siotime
 </h1>
 
 <div class="subtitle">
-    28 spots disponibles
+    30 spots disponibles
 </div>
 
 
@@ -988,21 +988,21 @@ const ENDPOINT =
    05 octobre 2026 à 20h */
 
 const INSCRIPTIONS_START =
-    new Date(2026, 9, 5, 20, 0, 0);
+    new Date(2026, 9, 16, 20, 0, 0);
 
 
 /* ⛔ Fermeture des inscriptions
    15 octobre 2026 à 20h */
 
 const INSCRIPTIONS_END =
-    new Date(2026, 9, 15, 20, 0, 0);
+    new Date(2026, 9, 24, 20, 0, 0);
 
 
 /* 🔥 Début du Break
    15 octobre 2026 à 20h */
 
 const BREAK_START =
-    new Date(2026, 9, 15, 20, 0, 0);
+    new Date(2026, 9, 24, 20, 0, 0);
 
 
 
@@ -1023,25 +1023,25 @@ const teams = [
 
     {
         name: "Arizona Diamondbacks",
-        price: 17,
+        price: 10,
         logo: "https://www.mlbstatic.com/team-logos/109.svg"
     },
 
     {
         name: "Atlanta Braves",
-        price: 22,
+        price: 16,
         logo: "https://www.mlbstatic.com/team-logos/144.svg"
     },
 
     {
         name: "Baltimore Orioles",
-        price: 28,
+        price: 14,
         logo: "https://www.mlbstatic.com/team-logos/110.svg"
     },
 
     {
         name: "Boston Red Sox",
-        price: 27,
+        price: 19,
         logo: "https://www.mlbstatic.com/team-logos/111.svg"
     },
 
@@ -1053,141 +1053,152 @@ const teams = [
 
     {
         name: "Chicago White Sox",
-        price: 30,
+        price: 18,
         logo: "https://www.mlbstatic.com/team-logos/145.svg"
     },
 
     {
         name: "Cincinnati Reds",
-        price: 18,
+        price: 14,
         logo: "https://www.mlbstatic.com/team-logos/113.svg"
     },
 
     {
         name: "Cleveland Guardians",
-        price: 18,
+        price: 14,
         logo: "https://www.mlbstatic.com/team-logos/114.svg"
     },
 
     {
         name: "Colorado Rockies",
-        price: 21,
+        price: 9,
         logo: "https://www.mlbstatic.com/team-logos/115.svg"
     },
 
     {
         name: "Detroit Tigers",
-        price: 25,
+        price: 17,
         logo: "https://www.mlbstatic.com/team-logos/116.svg"
     },
 
     {
         name: "Houston Astros",
-        price: 20,
+        price: 10,
         logo: "https://www.mlbstatic.com/team-logos/117.svg"
     },
 
     {
         name: "Kansas City Royals",
-        price: 24,
+        price: 14,
         logo: "https://www.mlbstatic.com/team-logos/118.svg"
     },
 
     {
         name: "Los Angeles Angels",
-        price: 18,
+        price: 13,
         logo: "https://www.mlbstatic.com/team-logos/108.svg"
     },
 
     {
         name: "Miami Marlins",
-        price: 20,
+        price: 10,
         logo: "https://www.mlbstatic.com/team-logos/146.svg"
     },
 
     {
         name: "Milwaukee Brewers",
-        price: 29,
+        price: 18,
         logo: "https://www.mlbstatic.com/team-logos/158.svg"
     },
 
     {
         name: "Minnesota Twins",
-        price: 17,
+        price: 10,
         logo: "https://www.mlbstatic.com/team-logos/142.svg"
     },
 
     {
         name: "New York Mets",
-        price: 25,
+        price: 17,
         logo: "https://www.mlbstatic.com/team-logos/121.svg"
     },
 
     {
         name: "New York Yankees",
-        price: 33,
+        price: 27,
         logo: "https://www.mlbstatic.com/team-logos/147.svg"
     },
 
     {
         name: "Oakland Athletics",
-        price: 30,
+        price: 15,
         logo: "https://www.mlbstatic.com/team-logos/133.svg"
     },
 
     {
         name: "Philadelphia Phillies",
-        price: 22,
+        price: 16,
         logo: "https://www.mlbstatic.com/team-logos/143.svg"
     },
 
     {
         name: "San Diego Padres",
-        price: 17,
+        price: 13,
         logo: "https://www.mlbstatic.com/team-logos/135.svg"
     },
 
     {
         name: "San Francisco Giants",
-        price: 24,
+        price: 12,
         logo: "https://www.mlbstatic.com/team-logos/137.svg"
     },
 
     {
         name: "Seattle Mariners",
-        price: 24,
+        price: 15,
         logo: "https://www.mlbstatic.com/team-logos/136.svg"
     },
 
     {
         name: "St. Louis Cardinals",
-        price: 21,
+        price: 15,
         logo: "https://www.mlbstatic.com/team-logos/138.svg"
     },
 
     {
         name: "Tampa Bay Rays",
-        price: 17,
+        price: 10,
         logo: "https://www.mlbstatic.com/team-logos/139.svg"
     },
 
     {
         name: "Texas Rangers",
-        price: 20,
+        price: 11,
         logo: "https://www.mlbstatic.com/team-logos/140.svg"
     },
 
     {
         name: "Toronto Blue Jays",
-        price: 26,
+        price: 16,
         logo: "https://www.mlbstatic.com/team-logos/141.svg"
     },
 
     {
         name: "Washington Nationals",
-        price: 25,
+        price: 16,
         logo: "https://www.mlbstatic.com/team-logos/120.svg"
     }
+   {
+         name:"🏆 Autres Sports",
+         price:11,
+         logo:"https://cdn-icons-png.flaticon.com/512/857/857455.png"
+   },
+
+{
+      name:"🏅 Hors Sport",
+      price:15,
+      logo:"https://cdn-icons-png.flaticon.com/512/3069/3069172.png"
+}
 
 ];
 
